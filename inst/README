@@ -1,0 +1,169 @@
+R Package - AnalyzeIO_0.1.1
+
+INTRODUCTION
+
+This file explains how to install the R package AnalyzeIO. I assume
+that you have a basic knowledge of UNIX/LINUX and that you already
+have R installed on your machine.
+
+AnalyzeIO contains functions that allow ANALYZE image format .img
+and .hdr files to be read into R and written from R automatically
+
+I created this package for two reasons.
+
+(1) These functions provide in an interface between R and ANALYZE
+files. Many fMRI datasets are stored in this format and R provides a
+very flexible platform upon which to explore and analyze these
+datasets. I  hope this may be useful to other
+Statisticians/Researchers.
+
+(2) I wanted to practise how to create a R package! To do this i used
+the book `S Programming' by Venables and Ripley and the on-line R
+documentation available at http://www.ci.tuwien.ac.at/R/
+
+If you have any problems/suggestions using this package, please email
+me on marchini@stats.ox.ac.uk
+
+INSTALLATION
+
+1. Download the g-zipped tar archive  AnalyzeIO_0.1.1.tar.gz
+
+2. Unzip the file using        gunzip AnalyzeIO_0.1.1.tar.gz
+
+3. Unpack the archive using    tar -xvf AnalyzeIO_0.1.1.tar
+
+This will create a directory called AnalyzeIO and the files example.img and example.hdr (see EXAMPLES)
+
+4.  Install the package using     R CMD INSTALL -l /path/to/LIB AnalyzeIO
+
+/path/to/LIB should be the library directory where you wish to put the package.
+
+If you have root access to your machine then use 
+
+R CMD INSTALL AnalyzeIO
+
+and the package will be put into the default R library tree.
+
+5. You can then start an R session and load the package using
+
+ library(AnalyzeIO,lib.loc="/path/to/LIB")
+
+or 
+
+ library(AnalyzeIO) 
+
+(if you installed the package into the default R library tree)
+
+6. Use the EXAMPLES section to see how the functions work.
+
+FUNCTIONS
+
+The package contains the following functions 
+
+f.read.analyze.header - reads a .hdr file and returns it as a list
+f.read.analyze.volume - reads in a .img file into an array
+f.read.analyze.slice - reads in a specified slice from a .img file
+f.read.analyze.slice.at.all.time.points - reads in a specified slice from a .img file
+f.read.analyze.ts - reads in a specified time series from a .img file
+f.analyze.file.summary - summarises the contents of a .img file
+f.spectral.summary - plots a graphical summary of the frequency characteristics of an fMRI dataset stored in a .img file     
+f.basic.hdr.list.create - creates a basic list that can be used to write a .hdr file
+f.write.analyze - creates a .img and .hdr pair of files froma given array
+f.write.array.to.img.2bytes - writes an array into a .img file of 2 byte integers 
+f.write.array.to.img.float - writes an array into a .img file of 4 byte flotas
+f.write.list.to.hdr - writes a list to a .hdr file
+f.analyzeIO.gui - starts a GUI that allows the user to explore an fMRI dataset stored in an ANALYZE format .img file
+
+The functions come with help files
+
+
+
+EXAMPLES
+
+During the installation the two file example.img and example.hdr will have been unpacked. These are required for the following examples.
+
+The file example.img is a 4D fMRI dataset. There are 21 axial slices
+each consisting of a 64x64 grid of 4mmx4mmx6mm voxels. There is only
+one time point.
+
+For the purpose of this example I assume you have put them in the same
+directory in which you started an R session.
+
+1.  Load the package AnalyzeReadR (as described above).
+
+3. Get a summary of the data stored in the .img file using
+
+ >f.analyze.file.summary("./example.img") 
+[1] 
+[1]        File name:./example.img 
+[1]   Data Dimension: 4-D 
+[1]      X dimension: 64 
+[1]      Y dimension: 64 
+[1]      Z dimension: 21 
+[1]   Time dimension: 1 time points
+[1] Voxel dimensions: 4mmx4mmx6mm 
+[1]        Data type: signed short (16 bits per voxel)
+
+4. Read in the data from the .img file into an array using
+
+ >A<-f.read.analyze.volume("./example.img")
+
+5. Check the dimensions of the array
+
+ >dim(A) [1] 64 64 21 1
+
+6. Print out a slice of the dataset using
+
+ >image(A[,,10,1])
+
+7. Read in a specific slice 
+
+ >B<-f.read.analyze.slice("./example.img",slice=5,tpt=1)
+
+and plot it using
+
+ >image(B)
+
+8. Read in a time series from a given location
+
+ >f.read.analyze.ts("./example.img",x=30,y=30,z=10)
+
+NB. Because example.img consists of only one time point this will only return one value
+
+9. Create an array and save it in a file of 4 byte floats 
+
+ >a<-array(rnorm(20*30*40*3),dim=c(20,30,40,3))
+ >file<-"temp"
+ >f.write.analyze(a,file,size="float")
+
+10. The GUI can be started using
+
+ >f.analyzeIO.gui()     NB. This depends on tcltk package
+
+ (a) Navigate to a .img file using the Select File button.
+
+ (b) Select on of the options
+
+  (i) File Summary - prints a summary of the files contents
+  (ii) Plot Time Series - plots a time series at a given location (x,y,z)
+  (iii) Plot Periodogram - plots the periodogram of a time series at a given location (x,y,z)
+  (iv) Image Slice - plots a slice (z,t)
+  (v) Image Volume - plots an entire volume (t)
+  (vi) Movie - iteratively plots a movie through time of a given slice (z)
+  (vii) Spectral Summary - provides a graphical view of the spectral properties of an fMRI dataset (see R function f.spectral.summary for details)
+
+ (c) Enter the required arguements for your option selection (see in brackets above)
+
+ (d) Press OK.
+
+ (e) You will be able to repeat if you want or press quit to stop the GUI.
+
+PROBLEMS/SUGGESTIONS
+
+If you have any problems/suggestions using this package, please email
+me on marchini@stats.ox.ac.uk
+
+
+
+
+

@@ -1,0 +1,23 @@
+f.analyze.file.summary   PRINTS A SUMMARY OF THE CONTENTS OF AN ANALYZE
+                         .IMG FILE
+f.analyzeIO.gui          STARTS A GUI THAT USES ANALYZEIO FUNCTIONS TO
+                         EXPLORE AN FMRI DATASET
+f.basic.hdr.list.create  CREATES A BASIC LIST FOR A .HDR FILE
+f.read.analyze.header    READ ANALYZE .HDR HEADER FILE
+f.read.analyze.slice     READ A SPECIFIC SLICE FROM AN ANALYZE .IMG FILE
+f.read.analyze.slice.at.all.timepoints
+                         READS IN A SLICE OF A .IMG FILE AT ALL TIME
+                         POINTS INTO AN ARRAY
+f.read.analyze.ts        READ A TIME SERIES FROM A SPECIFIED LOCATION IN
+                         AN ANALYZE .IMG FILE
+f.read.analyze.volume    READ IN AN ANALYZE .IMG FILE
+f.spectral.summary       PLOTS A GRAPHICAL SUMMARY OF THE FREQUENCY
+                         CHARACTERISTICS OF AN FMRI DATASET STORED IN A
+                         .IMG FILE
+f.write.analyze          CREATES A .IMG AND .HDR PAIR FROM A GIVEN ARRAY
+f.write.array.to.img.2bytes
+                         WRITES AN ARRAY TO A .IMG FILE OF 2 BYTE
+                         INTEGERS
+f.write.array.to.img.float
+                         WRITES AN ARRAY TO A .IMG FILE OF 4 BYTE FLOATS
+f.write.list.to.hdr      CREATES A .HDR FILE
